@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 import 'dart:ui' as ui;
 import 'package:share_plus/share_plus.dart';
 import 'package:printing/printing.dart';
@@ -427,7 +428,12 @@ class _MapEditorScreenState extends State<MapEditorScreen> {
       } catch (_) {
         token = tableId; // fallback: usar tableId como token
       }
-      final base = AppEnv.qrBaseUrl.trim();
+      String base = AppEnv.qrBaseUrl.trim();
+      if (base.isEmpty && kIsWeb) {
+        final uri = Uri.base; // ex.: https://user.github.io/repo/#/rota
+        final path = uri.path.endsWith('/') ? uri.path : '${uri.path}/';
+        base = '${uri.origin}${path}#/pedido';
+      }
       payload = base.isEmpty ? token : '$base?t=${Uri.encodeComponent(token)}';
     }
     await showDialog(

@@ -11,5 +11,6 @@ class AppEnv {
 
   // Base URL para montar o payload do QR. Se vazio, o QR conterá apenas o token.
   // Exemplo recomendado: 'https://seu-dominio/scan' e o app/website lê o parâmetro 't'.
-  static const String qrBaseUrl = '';
+  // Produção (GitHub Pages)
+  static const String qrBaseUrl = 'https://wlpereira.github.io/Pedido/#/pedido';
 }

@@ -3,6 +3,9 @@ name: Build Flutter Web to docs/ on main
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'docs/**'
+      - '.github/workflows/**'
   workflow_dispatch:
 
 jobs:

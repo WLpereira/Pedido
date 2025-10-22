@@ -9,12 +9,21 @@ class OrdersService {
     String? customerName,
     required List<Map<String, dynamic>> items,
   }) async {
+    // Normalizar itens: garantir quantity e unit_price quando ausentes
+    final normalizedItems = items
+        .map((it) => {
+              'quantity': (it['quantity'] ?? 1),
+              'unit_price': (it['unit_price'] ?? 0),
+              'menu_item_name': it['menu_item_name'],
+              'custom_text': it['custom_text'],
+            })
+        .toList();
     final res = await _client.rpc(
       'place_order',
       params: {
         'p_token': token,
         'p_customer_name': customerName ?? '',
-        'p_items': items,
+        'p_items': normalizedItems,
       },
     );
     return res as String;

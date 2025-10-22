@@ -72,6 +72,7 @@ class _OrderPageState extends State<OrderPage> {
         items: [
           {
             'quantity': 1,
+            'unit_price': 0,
             'custom_text': text,
           }
         ],

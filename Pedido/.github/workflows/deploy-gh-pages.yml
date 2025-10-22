@@ -28,13 +28,14 @@ jobs:
       - name: Build web
         run: |
           REPO_NAME=${{ github.event.repository.name }}
-          flutter build web --release --web-renderer html --base-href "/$REPO_NAME/"
+          flutter build web --release --base-href "/$REPO_NAME/"
 
       - name: Move build to docs/
         run: |
           rm -rf docs
           mkdir -p docs
           cp -r build/web/* docs/
+          touch docs/.nojekyll
 
       - name: Commit docs to main
         uses: stefanzweifel/git-auto-commit-action@v5
